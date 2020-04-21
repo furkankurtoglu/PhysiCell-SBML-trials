@@ -270,7 +270,6 @@ void setup_microenvironment_tumor( void )
 
 void setup_tissue( void )
 {
-
 	Cell* pC;
     pC = create_cell(); 
     pC->assign_position( 0.0, 0.0, 0.0 ); 
@@ -319,9 +318,7 @@ void setup_tissue( void )
 }
 
 void simulate_SBML_for_cell(Cell* pCell, Phenotype& phenotype , double dt)
-{
-    
-    
+{   
     /////-------------------------------------------------------------------/////
 	static int SBML_idx_glucose = 0;
     static int SBML_idx_oxygen = 1;
@@ -335,12 +332,12 @@ void simulate_SBML_for_cell(Cell* pCell, Phenotype& phenotype , double dt)
 
 	// pC->phenotype.molecular.model_rr = rrHandle;  // assign the intracellular model to each cell
     vptr = rrc::getFloatingSpeciesConcentrations(pCell->phenotype.molecular.model_rr);
-    
+
     
     // ------ Data Changing Demo ----------- //
-/* 	
+	
     
-    std::cout << "--- before updating:" << std::endl;
+/*     std::cout << "--- before updating:" << std::endl;
     for (int idx=0; idx<vptr->Count; idx++)
     {
         std::cout << idx << ", " << vptr->Data[idx] << std::endl;
@@ -366,7 +363,7 @@ void simulate_SBML_for_cell(Cell* pCell, Phenotype& phenotype , double dt)
         std::cout << idx << ", " << vptr->Data[idx] << std::endl;
     } */
     
-	result = rrc::simulateEx (pCell->phenotype.molecular.model_rr, 0, 0.01, 100);  // start time, end time, and number of points
+	result = rrc::simulateEx (pCell->phenotype.molecular.model_rr, 0, 0.01, 2);  // start time, end time, and number of points
 /*     std::cout << "--- after simulation:" << std::endl;
     for (int idx=0; idx<vptr->Count; idx++)
     {
@@ -381,12 +378,21 @@ void simulate_SBML_for_cell(Cell* pCell, Phenotype& phenotype , double dt)
     {
         std::cout << idx << ", " << result->Data[8] << std::endl;
     } */
-    
-    
-    
-	pCell->custom_data[energy_vi]  = result->Data[8];
 
+	pCell->custom_data[energy_vi]  = result->Data[8];
+    std::cout << result->Data[8] << std::endl;
 }
+
+
+void simulate_SBML_for_all_cells(void) 
+{
+    for( int i=0; i < (*all_cells).size(); i++ )
+    {
+        //std::cout << "simulate_SBML_for_all_cells test" << std::endl;
+        simulate_SBML_for_cell((*all_cells)[i], (*all_cells)[i]->phenotype , 0.01);
+    }
+} 
+
 
 std::vector<std::string> energy_coloring_function( Cell* pCell )
 {
@@ -401,7 +407,7 @@ std::vector<std::string> energy_coloring_function( Cell* pCell )
 	std::vector< std::string > output( 4, "white" ); 
 
 	if (pCell->ID == 0)
-		std::cout << "--- coloring fn: energy = " <<pCell->custom_data[energy_vi] << std::endl; 
+		//std::cout << "--- coloring fn: energy = " <<pCell->custom_data[energy_vi] << std::endl; 
 
 	if (pCell->custom_data[energy_vi] > 1.8)
 		output[0] = "rgb(0,255,0)";

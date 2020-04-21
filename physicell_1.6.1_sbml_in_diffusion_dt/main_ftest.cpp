@@ -213,6 +213,8 @@ int main( int argc, char* argv[] )
 			// run PhysiCell 
 			((Cell_Container *)microenvironment.agent_container)->update_all_cells( PhysiCell_globals.current_time );
 			
+            simulate_SBML_for_all_cells();
+            
 			/*
 			  Custom add-ons could potentially go here. 
 			*/
