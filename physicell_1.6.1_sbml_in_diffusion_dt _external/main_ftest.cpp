@@ -109,7 +109,6 @@ int main( int argc, char* argv[] )
 	
 	// setup_microenvironment(); 
 	setup_microenvironment(); 
-    setup_coarse_microenvironment();
 	
 	/* PhysiCell setup */ 
  	
