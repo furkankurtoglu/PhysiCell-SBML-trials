@@ -84,10 +84,14 @@
 		<dy>20</dy>
 		<dz>20</dz>
 		<use_2D>true</use_2D>
-        <SBML_solver>true</SBML_solver>
-        <SBML_path>C:\Users\Furkan\Documents\GitHub\PhysiCell-SBML-trials\physicell_1.6.1_sbml_in_diffusion_dt _external</SBML_path>
 	</domain>
 	
+    <SBML_module>
+        <SBML_module>true</SBML_solver> <!-- on or off? --> 
+        <solver>libroadrunner</solver> <!-- defining solver -->
+        <SBML_path>C:\Users\Furkan\Documents\GitHub\PhysiCell-SBML-trials\physicell_1.6.1_sbml_in_diffusion_dt _external</SBML_path> <!-- SBML Path -->
+    </SBML_module>
+    
 	<overall>
 		<max_time units="min">1</max_time> 
 		<time_units>min</time_units>
@@ -118,7 +122,7 @@
 
 	<!-- rf. Vanderbilt training module, sort of -->
 	<microenvironment_setup>
-		<variable name="oxygen" units="mmHg" ID="0" SBML_Internal_ID="1">
+		<variable name="oxygen" units="mmHg" ID="0" SBML_Internal_ID="1"> <!-- SBML_Internal_ID is depicted from SBML_table_generator -->
 			<physical_parameter_set>
 				<diffusion_coefficient units="micron^2/min">0.0</diffusion_coefficient>
 				<decay_rate units="1/min">0.0</decay_rate>  
@@ -127,7 +131,7 @@
 			<Dirichlet_boundary_condition units="mmHg" enabled="false">8.0</Dirichlet_boundary_condition>
 		</variable>
 
-		<variable name="glucose"  ID="1" SBML_Internal_ID="0">
+		<variable name="glucose"  ID="1" SBML_Internal_ID="0"> <!-- SBML_Internal_ID is depicted from SBML_table_generator -->
 			<physical_parameter_set>
 				<diffusion_coefficient units="micron^2/min">0.0</diffusion_coefficient>
 				<decay_rate units="1/min">0.0</decay_rate>  
@@ -136,7 +140,7 @@
 			<Dirichlet_boundary_condition  enabled="false">20.0</Dirichlet_boundary_condition>
 		</variable>
 
-		<variable name="lactate"  ID="2" SBML_Internal_ID="3">
+		<variable name="lactate"  ID="2" SBML_Internal_ID="3"> <!-- SBML_Internal_ID is depicted from SBML_table_generator -->
 			<physical_parameter_set>
 				<diffusion_coefficient units="micron^2/min">30000.0</diffusion_coefficient>
 				<decay_rate units="1/min">0.0</decay_rate>  
@@ -153,8 +157,8 @@
 	
     
     
-    <internal_substrates>	
-        <variable name="energy" units="mmHg" SBML_Internal_ID="2">  
+    <internal_substrates>	<!-- Some metabolites are not found in microenvironment. Those needs to be treated as internal substrates -->
+        <variable name="energy" units="mmHg" SBML_Internal_ID="2">   <!-- SBML_Internal_ID is depicted from SBML_table_generator -->
     </internal_substrates>	
     
     
