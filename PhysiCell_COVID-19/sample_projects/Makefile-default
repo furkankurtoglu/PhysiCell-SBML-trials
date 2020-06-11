@@ -11,9 +11,6 @@ ifdef PHYSICELL_CPP
 	CC := $(PHYSICELL_CPP)
 endif
 
-# override with clang++ due to libRoadrunner macOS version relying on it
-CC := clang++
-
 ARCH := native # best auto-tuning
 # ARCH := core2 # a reasonably safe default for most CPUs since 2007
 # ARCH := corei7
@@ -33,43 +30,7 @@ ARCH := native # best auto-tuning
 # ARCH := nocona #64-bit pentium 4 or later 
 
 # CFLAGS := -march=$(ARCH) -Ofast -s -fomit-frame-pointer -mfpmath=both -fopenmp -m64 -std=c++11
-CFLAGS := -march=$(ARCH) -fomit-frame-pointer -Xpreprocessor -fopenmp -m64 -std=c++11
-
-PATH_TO_OMP := -L/usr/local/opt/libomp/lib
-
-LIBRR_DIR := C:\Users\Furkan\libroadrunner\roadrunner-win64-vs14-cp35m
-
-OSFLAG 	:=
-ifeq ($(OS),Windows_NT)
-	OSFLAG += -D WIN32
-	ifeq ($(PROCESSOR_ARCHITECTURE),AMD64)
-		OSFLAG += -D AMD64
-	endif
-	ifeq ($(PROCESSOR_ARCHITECTURE),x86)
-		OSFLAG += -D IA32
-	endif
-else
-	UNAME_S := $(shell uname -s)
-	ifeq ($(UNAME_S),Linux)
-		OSFLAG += -D LINUX
-	endif
-	ifeq ($(UNAME_S),Darwin)
-		OSFLAG += -D OSX
-#		LIBRR_DIR := /Users/heiland/libroadrunner/roadrunner-osx-10.9-cp36m
-		LIBRR_CFLAGS := -I${LIBRR_DIR}/include/rr/C
-		LIBRR_LIBS := ${LIBRR_DIR}/lib
-	endif
-		UNAME_P := $(shell uname -p)
-	ifeq ($(UNAME_P),x86_64)
-		OSFLAG += -D AMD64
-	endif
-		ifneq ($(filter %86,$(UNAME_P)),)
-	OSFLAG += -D IA32
-		endif
-	ifneq ($(filter arm%,$(UNAME_P)),)
-		OSFLAG += -D ARM
-	endif
-endif
+CFLAGS := -march=$(ARCH) -O3 -fomit-frame-pointer -mfpmath=both -fopenmp -m64 -std=c++11
 
 COMPILE_COMMAND := $(CC) $(CFLAGS) 
 
@@ -102,7 +63,7 @@ all:
 # sample projects 	
 list-projects:
 	@echo "Sample projects: template2D template3D biorobots-sample cancer-biorobots-sample heterogeneity-sample"
-	@echo "                 cancer-immune-sample virus-macrophage-sample template"
+	@echo "                 cancer-immune-sample virus-macrophage-sample"
 	
 template2D: 
 	cp ./sample_projects/template2D/custom_modules/* ./custom_modules/
@@ -121,15 +82,6 @@ template3D:
 	cp ./sample_projects/template3D/Makefile .
 	cp ./config/PhysiCell_settings.xml ./config/PhysiCell_settings-backup.xml 
 	cp ./sample_projects/template3D/config/* ./config/
-	
-template:
-	cp ./sample_projects/template/custom_modules/* ./custom_modules/
-	touch main.cpp && cp main.cpp main-backup.cpp
-	cp ./sample_projects/template/main.cpp ./main.cpp 
-	cp Makefile Makefile-backup
-	cp ./sample_projects/template/Makefile .
-	cp ./config/PhysiCell_settings.xml ./config/PhysiCell_settings-backup.xml 
-	cp ./sample_projects/template/config/* ./config/
 	
 # sample projects 
 
