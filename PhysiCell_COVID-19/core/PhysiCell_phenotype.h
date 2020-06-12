@@ -73,6 +73,8 @@
 #include <unordered_map>
 #include <map> 
 
+#include "rrc_api.h"
+
 #include "../BioFVM/BioFVM.h" 
 
 #include "../modules/PhysiCell_settings.h"
@@ -496,6 +498,10 @@ class Molecular
 		// total internalized substrate is transferred to the  
 		// predatory cell when ingested 
 		std::vector<double> fraction_transferred_when_ingested; 
+        
+        // Model_t *molecular_model;			// libSBML object (/usr/local/include/sbml/common/sbmlfwd.h)
+		rrc::RRHandle model_rr;
+		
 		
 		/* prototyping / beta in 1.5.0 */ 
 		// Boolean, Integer, and Double parameters

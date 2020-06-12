@@ -16,7 +16,7 @@ ARCH := native # best auto-tuning
 # LIBRR_DIR := placeholder
 #LIBRR_LIBS := placeholder
 LIBRR_DIR := C:\Users\furkan\libroadrunner\roadrunner-win64-vs14-cp35m
-LIBRR_LIBS := C:\Users\furkan\libroadrunner\roadrunner-win64-vs14-cp35m/bin
+LIBRR_LIBS := C:\Users\furkan\libroadrunner\roadrunner-win64-vs14-cp35m\bin
 
 LIBRR_CFLAGS := -I${LIBRR_DIR}/include/rr/C
 # LIBRR_CFLAGS := -Isbml_fake_headers

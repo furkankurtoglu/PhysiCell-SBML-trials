@@ -326,11 +326,11 @@ void setup_tissue( void )
 	Cell* pNearestCell = NULL; 
 	
     // START ------ Creating SBML Instance ---- START 
+    rrc::RRHandle rrHandle = createRRInstance();
     if (!rrc::loadSBML (rrHandle, "COVID-19_Internal_Viral_Dynamics.xml")) 
     {
     std::cerr << "------------->>>>>  Error while loading SBML file  <-------------\n\n";
     }
-    rrc::RRHandle rrHandle = createRRInstance();
      // END ------ Creating SBML Instance ---- END 
     
 	int n = 0; 
@@ -534,8 +534,8 @@ void simulate_SBML_for_cell(Cell* pCell, Phenotype& phenotype , double dt)
 	static int i_assembled_viron = microenvironment.find_density_index( "assembled virion" );
 	
     // Internal Amounts
-    double internal_virion = phenotype.molecular.internalized_total_substrates[i_Oxy];
-	double internal_assembled_viron = phenotype.molecular.internalized_total_substrates[i_Glu];
+    double internal_virion = phenotype.molecular.internalized_total_substrates[i_virion];
+	double internal_assembled_viron = phenotype.molecular.internalized_total_substrates[i_assembled_viron];
     
     // Custom Data indices
     double i_virion_i = pCell->custom_data.find_variable_index( "virion" );
@@ -558,7 +558,7 @@ void simulate_SBML_for_cell(Cell* pCell, Phenotype& phenotype , double dt)
     vptr = rrc::getFloatingSpeciesConcentrations(pCell->phenotype.molecular.model_rr);
 	
     // Setting New Values to SBML
-    vptr->Data[SBML_virion] = pCell->custom_data[i_virion_i]
+    vptr->Data[SBML_virion] = pCell->custom_data[i_virion_i];
     vptr->Data[SBML_uncoated_viron] = pCell->custom_data[i_uncoated_viron_i];
     vptr->Data[SBML_viral_RNA] = pCell->custom_data[i_viral_RNA_i];
     vptr->Data[SBML_viral_protein] = pCell->custom_data[i_viral_protein_i];
