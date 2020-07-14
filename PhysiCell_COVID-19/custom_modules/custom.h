@@ -100,6 +100,3 @@ void viral_dynamics( Cell* pCell, Phenotype& phenotype, double dt );
 
 void move_exported_to_viral_field( void ); 
 
-void simulate_SBML_for_all_cells(void);
-
-void simulate_SBML_for_cell(Cell* pCell, Phenotype& phenotype , double dt);

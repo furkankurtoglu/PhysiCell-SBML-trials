@@ -205,7 +205,7 @@ int main( int argc, char* argv[] )
 			// receptor dynamics 
 			
 			receptor_dynamics_model( diffusion_dt );
-            simulate_SBML_for_all_cells();
+            //simulate_SBML_for_all_cells();
 		
 			// run PhysiCell 
 			((Cell_Container *)microenvironment.agent_container)->update_all_cells( PhysiCell_globals.current_time );

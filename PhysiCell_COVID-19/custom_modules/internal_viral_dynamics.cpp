@@ -98,8 +98,97 @@ void internal_virus_model( Cell* pCell, Phenotype& phenotype, double dt )
 		pCell->custom_data[nV_internal];
 */		
 	phenotype.molecular.internalized_total_substrates[nA_external] = 
-		pCell->custom_data[nA_internal];	
+		pCell->custom_data[nA_internal];
+
 	
 	return; 
 }
+
+
+void simulate_SBML_for_cell(Cell* pCell, Phenotype& phenotype , double dt)
+{   
+    // SBML indices
+	static int SBML_virion = 0;
+    static int SBML_uncoated_viron = 1;
+	static int SBML_viral_RNA = 2;
+    static int SBML_viral_protein = 3;
+    static int SBML_assembled_viron = 4;
+    
+	rrc::RRVectorPtr vptr;
+	rrc::RRCDataPtr result;
+
+
+    // BioFVM indices
+    static int i_virion = microenvironment.find_density_index( "virion" ); 
+	static int i_assembled_viron = microenvironment.find_density_index( "assembled virion" );
 	
+    // Internal Amounts
+    double internal_virion = phenotype.molecular.internalized_total_substrates[i_virion];
+	double internal_assembled_viron = phenotype.molecular.internalized_total_substrates[i_assembled_viron];
+    
+    // Custom Data indices
+    double i_virion_i = pCell->custom_data.find_variable_index( "virion" );
+    double i_uncoated_viron_i = pCell->custom_data.find_variable_index( "uncoated virion" );
+    double i_viral_RNA_i = pCell->custom_data.find_variable_index( "viral RNA" );
+    double i_viral_protein_i = pCell->custom_data.find_variable_index( "viral_protein" );
+    double i_assembled_viron_i = pCell->custom_data.find_variable_index( "assembled virion" );
+    double cell_volume = phenotype.volume.total;
+
+    
+    // Calculating internal concentrations & Updating cell data
+    pCell->custom_data[i_virion_i] = internal_virion / cell_volume;
+    pCell->custom_data[i_assembled_viron_i] = internal_assembled_viron / cell_volume;
+    
+    
+    //std::cout <<  "Internal Viral Amount: " << internal_virion  << std::endl;
+    //std::cout <<  "Internal Viral Concentration: " << pCell->custom_data[i_virion_i]  << std::endl;
+
+    // Geting molecular model structure
+    vptr = rrc::getFloatingSpeciesConcentrations(pCell->phenotype.molecular.model_rr);
+	
+    // Setting New Values to SBML
+/*     vptr->Data[SBML_virion] = pCell->custom_data[i_virion_i];
+    vptr->Data[SBML_uncoated_viron] = pCell->custom_data[i_uncoated_viron_i];
+    vptr->Data[SBML_viral_RNA] = pCell->custom_data[i_viral_RNA_i];
+    vptr->Data[SBML_viral_protein] = pCell->custom_data[i_viral_protein_i];
+    vptr->Data[SBML_assembled_viron] = pCell->custom_data[i_assembled_viron_i]; */
+    
+    rrc::setFloatingSpeciesConcentrations(pCell->phenotype.molecular.model_rr, vptr);
+    
+    // SBML Simulation
+	//result = rrc::simulateEx (pCell->phenotype.molecular.model_rr, 0, 0.01, 2);  // start time, end time, and number of points
+
+    //int idx = (result->RSize - 1) * result->CSize + 1;
+    //std::cout << "Cell ID 0) Saving last energy value (cell custom var) = " << result->Data[idx] << std::endl;
+/*     for (int idx=0; idx<20; idx++)
+    {
+        std::cout << idx << ", " << result->Data[8] << std::endl;
+    } */
+
+    // Result Indicing!!!!!
+
+    //pCell->custom_data[i_virion_i]  = result->Data[6];
+    //std::cout << result->Data[6] << std::endl;
+    
+/*     pCell->custom_data[i_uncoated_viron_i]  = result->Data[7];
+	pCell->custom_data[i_viral_RNA_i]  = result->Data[8];
+    pCell->custom_data[i_viral_protein_i] = result->Data[7];
+    pCell->custom_data[i_assembled_viron_i] = result->Data[7]; */
+    
+    // Updating Internal Amount
+    
+    // phenotype.molecular.internalized_total_substrates[i_virion] = pCell->custom_data[i_virion_i]*cell_volume;
+    // phenotype.molecular.internalized_total_substrates[i_assembled_viron] = pCell->custom_data[i_assembled_viron_i]*cell_volume;
+}
+
+
+
+void simulate_SBML_for_all_cells(void) 
+{
+    for( int i=0; i < (*all_cells).size(); i++ )
+    {
+        //std::cout << "simulate_SBML_for_all_cells test" << std::endl;
+        simulate_SBML_for_cell((*all_cells)[i], (*all_cells)[i]->phenotype , 0.01);
+    }
+} 
+

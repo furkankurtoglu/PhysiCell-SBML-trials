@@ -12,4 +12,7 @@ using namespace PhysiCell;
 void internal_virus_model_setup( void );
 void internal_virus_model( Cell* pCell, Phenotype& phenotype, double dt );
 
+void simulate_SBML_for_all_cells(void);
+void simulate_SBML_for_cell(Cell* pCell, Phenotype& phenotype , double dt);
+
 #endif 
