@@ -158,10 +158,10 @@
 	<cell_definitions>
 		<cell_definition name="default" ID="0">
 			<phenotype>
-				<cycle code="2" name="live">  
+				<cycle code="5" name="live">  
 					<!-- using higher than normal significant digits to match divisions in default code -->
 					<transition_rates units="1/min"> 
-						<rate start_index="0" end_index="0" fixed_duration="true">60</rate>
+						<rate start_index="0" end_index="0" fixed_duration="false">0.0</rate>
 					</transition_rates>
 				</cycle>
 				
@@ -177,7 +177,6 @@
 				
 				<volume>  
 					<total units="micron^3">500</total>
-					
 					<fluid_change_rate units="1/min">0.0</fluid_change_rate>
 					<cytoplasmic_biomass_change_rate units="1/min">0.0</cytoplasmic_biomass_change_rate>
 					<nuclear_biomass_change_rate units="1/min">0.0</nuclear_biomass_change_rate>
@@ -208,14 +207,18 @@
 				</secretion>
 				<intracellular type="roadrunner">
 					<sbml_filename>./config/Toy_oxy_mms_tr_01.xml</sbml_filename>
-                    <species  substrate="oxygen">Oxy</species >
-                    <species  phenotype="mms">migration_speed</species>
-                    <species  phenotype="ctr00">transition_rate_0_1</species>
-                    <species  phenotype="daaa">apop_rate</species>
-                    <species  phenotype="ssr1">secretion_rate_Lactate</species>
-                    <species  phenotype="testaa">test</species>
+                    <map PC_substrate="oxygen" sbml_species="Oxy"></map >
+                    <map PC_custom_data="PC_Test_CD" sbml_species="death_rate"></map>
+                    <map PC_phenotype="ctr00" sbml_species="transition_rate_0_1"></map>
+                    <map PC_phenotype="mms" sbml_species="migration_speed"></map>
+                    <map PC_phenotype="da" sbml_species="death_rate"></map>
+                    <map PC_phenotype="ssr1" sbml_species="secretion_rate_Lactate"></map>
+                    <map PC_phenotype="test" sbml_species="test"></map>
 				</intracellular>
 			</phenotype>
+            <custom_data>  
+				<test_CD units="dimensionless">0.0</test_CD> 
+			</custom_data>
 		</cell_definition>
     </cell_definitions>
 	

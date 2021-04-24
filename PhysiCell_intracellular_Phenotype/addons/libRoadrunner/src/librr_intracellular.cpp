@@ -62,50 +62,46 @@ void RoadRunnerIntracellular::initialize_intracellular_from_pugixml(pugi::xml_no
         std::cout << "\n------------- "  << __FUNCTION__ << ": sbml_filename = " << sbml_filename << std::endl;
     }
 	
-	pugi::xml_node node_species = node.child( "species" );
+	pugi::xml_node node_species = node.child( "map" );
 	while( node_species )
 	{
         // ---------  substrate
         
-		std::string substrate_name = node_species.attribute( "substrate" ).value(); 
+		std::string substrate_name = node_species.attribute( "PC_substrate" ).value(); 
 		if( substrate_name != "" )
 		{
-            
-			std::string species_name = PhysiCell::xml_get_my_string_value( node_species );
+            //std::cout << "-----------" << node_species.attribute( "sbml_species" ).value() << std::endl; 
+			std::string species_name = node_species.attribute( "sbml_species" ).value();
 			substrate_species[substrate_name] = species_name;
             std::cout << "\n------------- "  << __FUNCTION__ << ": species_name= " << species_name << std::endl;
 		}
         // ---------  custom_data
-		std::string custom_data_name = node_species.attribute( "custom_data" ).value(); 
+		std::string custom_data_name = node_species.attribute( "PC_custom_data" ).value(); 
 		if( custom_data_name != "" )
 		{
-			std::string species_name = PhysiCell::xml_get_my_string_value( node_species );
+			std::string species_name = node_species.attribute( "sbml_species" ).value();
 			custom_data_species[custom_data_name] = species_name;
             // std::cout << "\n------------- "  << __FUNCTION__ << ": species_name= " << species_name << std::endl;
 		}
         
-        std::string phenotype_name = node_species.attribute( "phenotype" ).value(); 
-        
         
         // ---------  phenotype_data
+        std::string phenotype_name = node_species.attribute( "PC_phenotype" ).value(); 
+        
 		if( phenotype_name != "" )
 		{
-            //std::cout << "  ------- TEEEEEEEEEEST:"  << std::endl;
-			std::string species_name = PhysiCell::xml_get_my_string_value( node_species );
+			std::string species_name = node_species.attribute( "sbml_species" ).value();
 			phenotype_species[phenotype_name] = species_name;
             // std::cout << "\n------------- "  << __FUNCTION__ << ": species_name= " << species_name << std::endl;
 		}
 
-        
-        
-		node_species = node_species.next_sibling( "species" ); 
+		node_species = node_species.next_sibling( "map" ); 
 	}
 	
     std::cout << "  ------- substrate_species map:"  << std::endl;
     for(auto elm : substrate_species)
     {
         std::cout << "      "  << elm.first << " -> " << elm.second << std::endl;
-        //std::cout << "  ------- TEEEEEEEEEEST:"  << std::endl;
     }
     std::cout << "  ------- custom_data_species map:"  << std::endl;
     for(auto elm : custom_data_species)
@@ -121,19 +117,12 @@ void RoadRunnerIntracellular::initialize_intracellular_from_pugixml(pugi::xml_no
     }
     std::cout << std::endl;    
 
-	// maboss.set_initial_values(initial_values);
-	// maboss.set_parameters(parameters);	
-	// pugi::xml_node node_timestep = node.child( "time_step" ); 
-	// if( node_timestep )
-	// { 
-	// 	time_step = PhysiCell::xml_get_my_double_value( node_timestep );
-	// 	maboss.set_update_time_step(time_step);
-	// }
 }
 
-// called when a new cell is created; creates the unique 'rrHandle'
+
 int RoadRunnerIntracellular::start()
 {
+    // called when a new cell is created; creates the unique 'rrHandle'
     rrc::RRVectorPtr vptr;
 
     std::cout << "\n------------ " << __FUNCTION__ << ": librr_intracellular.cpp: start() called\n";
@@ -386,25 +375,29 @@ int RoadRunnerIntracellular::update_phenotype_parameters(PhysiCell::Phenotype& p
             if (elm.first.substr(0,3) == "sur")
             {
                 char subs_index = elm.first[3];
-                phenotype.secretion.uptake_rates[int(subs_index)] = phenotype.intracellular->get_parameter_value(elm.second);
+                int sub_index = subs_index - '0';
+                phenotype.secretion.uptake_rates[sub_index] = phenotype.intracellular->get_parameter_value(elm.second);
             }
             else if (elm.first.substr(0,3) == "ssr")
             {
                 char subs_index = elm.first[3];
+                int sub_index = subs_index - '0';
                 //std::cout << phenotype.intracellular->get_parameter_value(elm.second) << std::endl;
                 //std::cout << " Before ssr update =  "  << phenotype.secretion.secretion_rates[subs_index] << std::endl;
-                phenotype.secretion.secretion_rates[subs_index] = phenotype.intracellular->get_parameter_value(elm.second);
+                phenotype.secretion.secretion_rates[sub_index] = phenotype.intracellular->get_parameter_value(elm.second);
                 //std::cout << " After ssr update =  "  << phenotype.secretion.secretion_rates[subs_index] << std::endl;
             }
             else if (elm.first.substr(0,3) == "ssd")
             {
                 char subs_index = elm.first[3];
-                phenotype.secretion.saturation_densities[subs_index] = phenotype.intracellular->get_parameter_value(elm.second);
+                int sub_index = subs_index - '0';
+                phenotype.secretion.saturation_densities[sub_index] = phenotype.intracellular->get_parameter_value(elm.second);
             }
             else if (elm.first.substr(0,3) == "ser")
             {
                 char subs_index = elm.first[3];
-                phenotype.secretion.net_export_rates[subs_index] = phenotype.intracellular->get_parameter_value(elm.second);
+                int sub_index = subs_index - '0';
+                phenotype.secretion.net_export_rates[sub_index] = phenotype.intracellular->get_parameter_value(elm.second);
             }
             else
             {
@@ -422,7 +415,10 @@ int RoadRunnerIntracellular::update_phenotype_parameters(PhysiCell::Phenotype& p
                 int end_ind = end_index - '0';
                 //std::cout << "start index: " << start_index << std::endl;
                 //std::cout << "end index: " << end_index << std::endl;
-                phenotype.cycle.data.transition_rate(start_ind,end_ind) = phenotype.intracellular->get_parameter_value(elm.second);
+                std::cout << " Before ssr update =  "  <<  phenotype.cycle.data.transition_rate(start_ind,end_ind) << std::endl;
+                //std::cout << "end index: " << end_index << std::endl;
+                //phenotype.cycle.data.transition_rate(0,0) = phenotype.intracellular->get_parameter_value(elm.second);
+                std::cout << " After ssr update =  "  << phenotype.cycle.data.transition_rate(start_ind,end_ind) << std::endl;
             }
             else
             {

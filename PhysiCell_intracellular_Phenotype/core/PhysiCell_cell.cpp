@@ -501,6 +501,10 @@ Cell* Cell::divide( )
 	
 	// child->set_phenotype( phenotype ); 
 	child->phenotype = phenotype; 
+    
+    
+    // 
+    child->phenotype.intracellular->start();
 	
 	return child;
 }

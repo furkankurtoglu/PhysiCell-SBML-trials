@@ -184,14 +184,23 @@ std::vector<std::string> my_coloring_function( Cell* pCell )
 		output[2] = "rgb(125,0,0)";
 	}
     
-    //std::cout << "TEEEST " << std::endl; 
+  
+    
+    
+    if ( pCell->phenotype.intracellular == NULL)
+    {
+        std::cout << "NULL" << std::endl;
+    }
+    
     pCell->phenotype.intracellular->update();
     double oxy_val = pCell->phenotype.intracellular->get_parameter_value("Oxy");
-    std::cout << "-----custom.cpp:  oxy_val (from intracellular) = " << oxy_val << std::endl; 
+    //std::cout << "Cell ID : " << pCell->ID <<"  intracellular = " << oxy_val << std::endl; 
     
     
     
     pCell->phenotype.intracellular->update_phenotype_parameters(pCell->phenotype);
+    
+    
 
     
 	

@@ -154,7 +154,7 @@
           </COPASI>
         </annotation>
       </species>
-      <species metaid="COPASI4" id="transition_rate_0_1" name="transition_rate_0_1" compartment="Cell" initialConcentration="10" boundaryCondition="false" constant="false">
+      <species metaid="COPASI4" id="transition_rate_0_1" name="transition_rate_0_1" compartment="Cell" initialConcentration="0.5" boundaryCondition="false" constant="false">
         <annotation>
           <COPASI xmlns="http://www.copasi.org/static/sbml">
             <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
