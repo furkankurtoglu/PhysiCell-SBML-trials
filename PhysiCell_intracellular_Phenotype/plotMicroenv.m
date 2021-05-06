@@ -51,9 +51,9 @@ for i = 1:length(OutMatFiles)
     %% Chemical A
     k = find( MCDS.mesh.Z_coordinates == 0 );
     h = figure(2);
-    filename="Chemical_A.gif";
+    filename="Lactate.gif";
     contourf( MCDS.mesh.X(:,:,k), MCDS.mesh.Y(:,:,k), MCDS.continuum_variables(2).data(:,:,k) ,10 ) ;
-    caxis([0 100])
+    caxis([0 5])
     axis image
     colorbar
     xlabel( sprintf( 'x (%s)' , MCDS.metadata.spatial_units) );
@@ -74,6 +74,7 @@ for i = 1:length(OutMatFiles)
     else
         imwrite(imind,cm,filename,'gif','WriteMode','append');
     end
+    pause()
 end 
 
 cd ..

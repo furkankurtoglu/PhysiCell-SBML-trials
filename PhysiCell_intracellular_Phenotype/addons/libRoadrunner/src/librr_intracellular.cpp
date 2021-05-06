@@ -325,8 +325,6 @@ std::string RoadRunnerIntracellular::get_state()
 
 int RoadRunnerIntracellular::update_phenotype_parameters(PhysiCell::Phenotype& phenotype)
 {
-
-
     for(auto elm : phenotype_species)
     {
         // motility params
@@ -350,7 +348,7 @@ int RoadRunnerIntracellular::update_phenotype_parameters(PhysiCell::Phenotype& p
             }
             else
             {
-                std::cout << "There is no specified token parameters in the name of " << elm.first << " at motility parameters. Please take a look token specifications." << std::endl;
+                //std::cout << "There is no specified token parameters in the name of " << elm.first << " at motility parameters. Please take a look token specifications." << std::endl;
             }
         }
         // death params
@@ -366,7 +364,142 @@ int RoadRunnerIntracellular::update_phenotype_parameters(PhysiCell::Phenotype& p
             }
             else
             {
-                std::cout << "There is no specified token in the name of " << elm.first << " at death parameters. Please take a look token specifications."  << std::endl;
+                //std::cout << "There is no specified token in the name of " << elm.first << " at death parameters. Please take a look token specifications."  << std::endl;
+            }
+        }
+        // secretion params
+        else if (elm.first[0] == 's')
+        {
+            if (elm.first.substr(0,3) == "sur")
+            {
+                char subs_index = elm.first[3];
+                int sub_index = subs_index - '0';
+                phenotype.secretion.uptake_rates[sub_index] = phenotype.intracellular->get_parameter_value(elm.second);
+            }
+            else if (elm.first.substr(0,3) == "ssr")
+            {
+                char subs_index = elm.first[3];
+                int sub_index = subs_index - '0';
+                //std::cout << phenotype.intracellular->get_parameter_value(elm.second) << std::endl;
+                //std::cout << " Before ssr update =  "  << phenotype.secretion.secretion_rates[subs_index] << std::endl;
+                phenotype.secretion.secretion_rates[sub_index] = phenotype.intracellular->get_parameter_value(elm.second);
+                //std::cout << " After ssr update =  "  << phenotype.secretion.secretion_rates[subs_index] << std::endl;
+            }
+            else if (elm.first.substr(0,3) == "ssd")
+            {
+                char subs_index = elm.first[3];
+                int sub_index = subs_index - '0';
+                phenotype.secretion.saturation_densities[sub_index] = phenotype.intracellular->get_parameter_value(elm.second);
+            }
+            else if (elm.first.substr(0,3) == "ser")
+            {
+                char subs_index = elm.first[3];
+                int sub_index = subs_index - '0';
+                phenotype.secretion.net_export_rates[sub_index] = phenotype.intracellular->get_parameter_value(elm.second);
+            }
+            else
+            {
+                //std::cout << "There is no specified token in the name of " << elm.first << " at secretion parameters. Please take a look token specifications."  << std::endl;
+            }
+        }
+        else if (elm.first[0] == 'c')
+        {
+            if (elm.first.substr(0,3) == "ctr")
+            {
+                // cycle does not look for valid indices 
+                char start_index = elm.first[3];
+                char end_index = elm.first[4];
+                int start_ind = start_index - '0';
+                int end_ind = end_index - '0';
+                //std::cout << "start index: " << start_index << std::endl;
+                //std::cout << "end index: " << end_index << std::endl;
+                //std::cout << " Before ctr update =  "  <<  phenotype.cycle.data.transition_rate(start_ind,end_ind) << std::endl;
+                //std::cout << "end index: " << end_index << std::endl;
+                phenotype.cycle.data.transition_rate(start_ind,end_ind) = phenotype.intracellular->get_parameter_value(elm.second);
+                //std::cout << " After ctr update =  "  << phenotype.cycle.data.transition_rate(start_ind,end_ind) << std::endl;
+            }
+            else
+            {
+                //std::cout << "There is no specified token in the name of " << elm.first << " at cycle parameters. Please take a look token specifications."  << std::endl;
+            }
+        }
+        
+        else if (elm.first[0] == 'v')
+        {
+            if (elm.first == "vtsc")
+            {
+                phenotype.volume.target_solid_cytoplasmic = phenotype.intracellular->get_parameter_value(elm.second);
+            }
+            else if (elm.first == "vtsn")
+            {
+                phenotype.volume.target_solid_nuclear = phenotype.intracellular->get_parameter_value(elm.second);
+            }
+            else if (elm.first == "vff")
+            {
+                phenotype.volume.target_fluid_fraction = phenotype.intracellular->get_parameter_value(elm.second);
+            }
+            else
+            {
+                std::cout << "There is no specified token for " << elm.first << " at volume parameters. Please take a look token specifications." << std::endl;
+            }
+        }
+        else
+        {
+           // std::cout << "There is no specified token in the name of " << elm.first << ". Please take a look token specifications.";
+        }
+        
+    }
+    //std::cout << std::endl;
+
+
+    return 0;
+}
+
+
+int RoadRunnerIntracellular::validate_PhysiCell_tokens(PhysiCell::Phenotype& phenotype)
+{
+    std::cout<< std::endl;
+    std::cout<< std::endl;
+    for(auto elm : phenotype_species)
+    {
+
+        // motility params
+        if (elm.first[0] == 'm')
+        {
+            if (elm.first == "mms")
+            {
+            }
+            else if (elm.first == "mpt")
+            {
+            }
+            else if (elm.first == "mmb")
+            {
+            }
+            else
+            {
+                std::cout << "ERROR: There is no specified token parameters in the name of \"" << elm.first << "\" at motility parameters. Please take a look token specifications." << std::endl;
+                std::cout<< std::endl;
+                std::cout<< std::endl;
+                exit (-1);
+                return -1;
+            }
+        }
+        // death params
+        else if (elm.first[0] == 'd')
+        {
+            if (elm.first == "da")
+            {                
+            }
+            else if (elm.first == "dn")
+            {
+            }
+            else
+            {
+                std::cout << "ERROR: There is no specified token parameters in the name of \"" << elm.first << "\" at death parameters. Please take a look token specifications." << std::endl;
+                std::cout<< std::endl;
+                std::cout<< std::endl;
+                exit (-1);
+                return -1;
             }
         }
         // secretion params
@@ -415,14 +548,18 @@ int RoadRunnerIntracellular::update_phenotype_parameters(PhysiCell::Phenotype& p
                 int end_ind = end_index - '0';
                 //std::cout << "start index: " << start_index << std::endl;
                 //std::cout << "end index: " << end_index << std::endl;
-                std::cout << " Before ssr update =  "  <<  phenotype.cycle.data.transition_rate(start_ind,end_ind) << std::endl;
+                //std::cout << " Before ctr update =  "  <<  phenotype.cycle.data.transition_rate(start_ind,end_ind) << std::endl;
                 //std::cout << "end index: " << end_index << std::endl;
-                //phenotype.cycle.data.transition_rate(0,0) = phenotype.intracellular->get_parameter_value(elm.second);
-                std::cout << " After ssr update =  "  << phenotype.cycle.data.transition_rate(start_ind,end_ind) << std::endl;
+                phenotype.cycle.data.transition_rate(start_ind,end_ind) = phenotype.intracellular->get_parameter_value(elm.second);
+                //std::cout << " After ctr update =  "  << phenotype.cycle.data.transition_rate(start_ind,end_ind) << std::endl;
             }
             else
             {
-                std::cout << "There is no specified token in the name of " << elm.first << " at cycle parameters. Please take a look token specifications."  << std::endl;
+                std::cout << "ERROR: There is no specified token parameters in the name of \"" << elm.first << "\" at cycle parameters. Please take a look token specifications." << std::endl;
+                std::cout<< std::endl;
+                std::cout<< std::endl;
+                exit (-1);
+                return -1;
             }
         }
         
@@ -430,24 +567,29 @@ int RoadRunnerIntracellular::update_phenotype_parameters(PhysiCell::Phenotype& p
         {
             if (elm.first == "vtsc")
             {
-                phenotype.volume.target_solid_cytoplasmic = phenotype.intracellular->get_parameter_value(elm.second);
             }
             else if (elm.first == "vtsn")
             {
-                phenotype.volume.target_solid_nuclear = phenotype.intracellular->get_parameter_value(elm.second);
             }
             else if (elm.first == "vff")
             {
-                phenotype.volume.target_fluid_fraction = phenotype.intracellular->get_parameter_value(elm.second);
             }
             else
             {
-                std::cout << "There is no specified token for " << elm.first << " at volume parameters. Please take a look token specifications." << std::endl;
+                std::cout << "ERROR: There is no specified token parameters in the name of \"" << elm.first << "\" at volume parameters. Please take a look token specifications." << std::endl;
+                std::cout<< std::endl;
+                std::cout<< std::endl;
+                exit (-1);
+                return -1;
             }
         }
         else
         {
-            std::cout << "There is no specified token in the name of " << elm.first << ". Please take a look token specifications.";
+            std::cout << "ERROR: There is no specified token parameters in the name of \"" << elm.first << "\" at phenotypic parameters. Please take a look token specifications." << std::endl;
+            std::cout<< std::endl;
+            std::cout<< std::endl;
+            exit (-1);
+            return -1;
         }
         
     }

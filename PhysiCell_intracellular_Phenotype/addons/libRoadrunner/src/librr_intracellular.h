@@ -89,6 +89,7 @@ class RoadRunnerIntracellular : public PhysiCell::Intracellular
     
     
     int update_phenotype_parameters(PhysiCell::Phenotype& phenotype);
+    int validate_PhysiCell_tokens(PhysiCell::Phenotype& phenotype);
 	
 	double get_parameter_value(std::string name);
 	int set_parameter_value(std::string name, double value);

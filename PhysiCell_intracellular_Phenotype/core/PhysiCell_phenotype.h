@@ -588,7 +588,7 @@ class Intracellular
 
     // ================  specific to "sbml" ================
     virtual int update_phenotype_parameters(PhysiCell::Phenotype& phenotype) = 0;
-    
+    virtual int validate_PhysiCell_tokens(PhysiCell::Phenotype& phenotype) = 0;
     
 };
 
