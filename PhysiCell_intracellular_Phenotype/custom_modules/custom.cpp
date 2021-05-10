@@ -153,7 +153,8 @@ void setup_tissue( void )
 	pCell = create_cell(get_cell_definition("default")); 
     pCell->assign_position( -50, -30 , 0.0 );
     pCell->phenotype.intracellular->start();
-    pCell->phenotype.intracellular->validate_PhysiCell_tokens(pCell->phenotype);
+    //std::cout << "TEST" << std::endl;
+    //pCell->phenotype.intracellular->validate_PhysiCell_tokens(pCell->phenotype);
     
     //double oxy_val = pCell->phenotype.intracellular->get_parameter_value("Oxy");
     //std::cout << "main.cpp:  oxy_val (from intracellular) = " << oxy_val << std::endl; 
@@ -198,9 +199,9 @@ std::vector<std::string> my_coloring_function( Cell* pCell )
     //std::cout << "Cell ID : " << pCell->ID <<"  intracellular = " << oxy_val << std::endl; 
     
     
-    
-    pCell->phenotype.intracellular->update_phenotype_parameters(pCell->phenotype);
     //pCell->phenotype.intracellular->validate_PhysiCell_tokens(pCell->phenotype);
+    pCell->phenotype.intracellular->update_phenotype_parameters(pCell->phenotype);
+ 
     
     
 

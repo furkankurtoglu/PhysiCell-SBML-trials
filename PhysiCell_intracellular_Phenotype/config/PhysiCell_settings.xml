@@ -194,7 +194,7 @@
 				</motility>
                 <secretion>
 					<substrate name="lactate">
-						<secretion_rate units="1/min">0</secretion_rate>
+						<secretion_rate units="1/min">1.0</secretion_rate>
 						<secretion_target units="substrate density">10</secretion_target>
 						<uptake_rate units="1/min">0.0</uptake_rate>
 						<net_export_rate units="total substrate/min">0</net_export_rate> 
@@ -204,9 +204,7 @@
 					<sbml_filename>./config/Toy_oxy_mms_tr_01.xml</sbml_filename>
                     <map PC_substrate="oxygen" sbml_species="Oxy"></map >
                     <map PC_custom_data="PC_Test_CD" sbml_species="death_rate"></map>
-                    <map PC_phenotype="ctr00" sbml_species="transition_rate_0_1"></map>
-                    <map PC_phenotype="ssr1" sbml_species="secretion_rate_Lactate"></map>
-                    <map PC_phenotype="mms" sbml_species="test"></map>
+                    <map PC_phenotype="sur_lactate" sbml_species="death_rate"></map>
 				</intracellular>
 			</phenotype>
             <custom_data>  

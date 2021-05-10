@@ -42,8 +42,8 @@ class RoadRunnerIntracellular : public PhysiCell::Intracellular
 	std::map<std::string, double> parameters;
 	std::map<std::string, std::string> substrate_species;
 	std::map<std::string, std::string> custom_data_species;
-	std::map<std::string, std::string> phenotype_species;    ///////
-	std::map<std::string, int> species_result_column_index;   
+	std::map<std::string, std::string> phenotype_species;
+	std::map<std::string, int> species_result_column_index;
 	
     // rrc::RRHandle rrHandle = createRRInstance();
     rrc::RRHandle rrHandle;
@@ -66,7 +66,7 @@ class RoadRunnerIntracellular : public PhysiCell::Intracellular
 		RoadRunnerIntracellular* clone = new RoadRunnerIntracellular(this);
 		clone->sbml_filename = this->sbml_filename;
 		clone->substrate_species = this->substrate_species;
-        clone->phenotype_species = this->phenotype_species; //////////////////
+        clone->phenotype_species = this->phenotype_species;
 		clone->custom_data_species = this->custom_data_species;
 		return static_cast<Intracellular*>(clone);
 	}
@@ -90,6 +90,7 @@ class RoadRunnerIntracellular : public PhysiCell::Intracellular
     
     int update_phenotype_parameters(PhysiCell::Phenotype& phenotype);
     int validate_PhysiCell_tokens(PhysiCell::Phenotype& phenotype);
+    int validate_SBML_species();
 	
 	double get_parameter_value(std::string name);
 	int set_parameter_value(std::string name, double value);

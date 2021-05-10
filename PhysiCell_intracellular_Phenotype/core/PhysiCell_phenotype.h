@@ -586,10 +586,10 @@ class Intracellular
 	virtual void print_current_nodes() = 0;
 	
 
-    // ================  specific to "sbml" ================
+    // ================  specific to "roadrunner" ================
     virtual int update_phenotype_parameters(PhysiCell::Phenotype& phenotype) = 0;
     virtual int validate_PhysiCell_tokens(PhysiCell::Phenotype& phenotype) = 0;
-    
+    virtual int validate_SBML_species() = 0;
 };
 
 class Phenotype

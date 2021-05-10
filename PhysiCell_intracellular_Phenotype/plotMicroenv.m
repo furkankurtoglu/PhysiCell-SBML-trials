@@ -74,7 +74,7 @@ for i = 1:length(OutMatFiles)
     else
         imwrite(imind,cm,filename,'gif','WriteMode','append');
     end
-    pause()
+
 end 
 
 cd ..
