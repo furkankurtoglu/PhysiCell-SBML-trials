@@ -2125,7 +2125,7 @@ Cell_Definition* initialize_cell_definition_from_pugixml( pugi::xml_node cd_node
 			// If it has already be copied
 			if (pParent != NULL && pParent->phenotype.intracellular != NULL) {
 				pCD->phenotype.intracellular->initialize_intracellular_from_pugixml(node);
-				
+				pCD->phenotype.intracellular->validate_PhysiCell_tokens(pCell->phenotype);
 			// Otherwise we need to create a new one
 			} else {
 				MaBoSSIntracellular* pIntra = new MaBoSSIntracellular(node);
