@@ -650,13 +650,14 @@ int RoadRunnerIntracellular::validate_PhysiCell_tokens(PhysiCell::Phenotype& phe
         }
         
     }
-
+    std::cout << "---- Specified PhysiCell tokens at config file are validated. ----- " << std::endl;
+    
     return 0;
 }
 
 int RoadRunnerIntracellular::validate_SBML_species()
 {
-    std::cout << "---------VALIDATING_SBML_SPECIES START-------" << std::endl;
+    //std::cout << "---------VALIDATING_SBML_SPECIES START-------" << std::endl;
     
     // reading SBML
     rrHandle = createRRInstance();
@@ -766,7 +767,9 @@ int RoadRunnerIntracellular::validate_SBML_species()
     }    
     
     
-    std::cout << "---------VALIDATING_SBML_SPECIES END-------" << std::endl;  
+    //std::cout << "---------VALIDATING_SBML_SPECIES END-------" << std::endl;  
     
+    
+    std::cout << "---- Specified SBML species at config file are validated. ----- " << std::endl;
     return 0;
 }
