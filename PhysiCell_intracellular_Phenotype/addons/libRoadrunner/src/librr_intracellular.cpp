@@ -656,7 +656,7 @@ int RoadRunnerIntracellular::validate_PhysiCell_tokens(PhysiCell::Phenotype& phe
 
 int RoadRunnerIntracellular::validate_SBML_species()
 {
-    std::cout << "---------VALIDATING_SBML_SPECIES-------" << std::endl;
+    std::cout << "---------VALIDATING_SBML_SPECIES START-------" << std::endl;
     
     // reading SBML
     rrHandle = createRRInstance();
@@ -667,23 +667,106 @@ int RoadRunnerIntracellular::validate_SBML_species()
     } 
     // getting Species Names
     std::string species_names_str = stringArrayToString(rrc::getFloatingSpeciesIds(rrHandle));
+    std::stringstream iss(species_names_str);
+    std::string species_name;
     
+    std::vector<std::string> all_species {};
+    
+    int idx = 0;
+    while (iss >> species_name)
+    {
+        species_result_column_index[species_name] = idx;
+        all_species.push_back(species_name);
+        //std::cout << species_name << " -> " << idx << std::endl;
+        idx++;
+    }
+
+    // Phenotype Species 
     for (auto elm : phenotype_species)
     {
-        bool found = 0;
-        std::string s;
-        std::stringstream ss;
-        ss << elm.second;
-        ss >> s;  
-        for (int i=0; i<species_names_str.size(); i++)
+        bool exist = 0;
+       // std::cout << species_name.size() << std::endl;
+        for (int i=0; i < all_species.size(); i++)
         {
-            if(strcmp(s, species_names_str[i]))
+            //std::cout << all_species[i] << std::endl;;
+            //std::cout << "Comparing " << all_species[i] << " with " << elm.second << std::endl;
+            if ( all_species[i] == elm.second )
             {
-                std::cout << "____________________FOUUND IT________" << std::endl;
+               //std::cout << "And they are the same..... " <<std::endl;
+               exist = 1; 
             }
+            idx++;  
         }
+        if (!exist)
+        {
+            std::cout<< std::endl;
+            std::cout << "ERROR: The specified SBML species in the name of \"" << elm.second << "\" at phenotypic species. Please take a look SBML species specifications." << std::endl;
+            std::cout<< std::endl;
+            std::cout<< std::endl;
+            exit (-1);
+            return -1;
+        }
+        //std::cout << "existence check : " << elm.second <<": " << exist << std::endl;
     }
     
+    // Substrate Species
+    for (auto elm : substrate_species)
+    {
+        bool exist = 0;
+       // std::cout << species_name.size() << std::endl;
+        for (int i=0; i < all_species.size(); i++)
+        {
+            //std::cout << all_species[i] << std::endl;;
+            //std::cout << "Comparing " << all_species[i] << " with " << elm.second << std::endl;
+            if ( all_species[i] == elm.second )
+            {
+               //std::cout << "And they are the same..... " <<std::endl;
+               exist = 1; 
+            }
+            idx++;  
+        }
+        if (!exist)
+        {
+            std::cout<< std::endl;
+            std::cout << "ERROR: The specified SBML species in the name of \"" << elm.second << "\" at substrate species. Please take a look SBML species specifications." << std::endl;
+            std::cout<< std::endl;
+            std::cout<< std::endl;
+            exit (-1);
+            return -1;
+        }
+        //std::cout << "existence check : " << elm.second <<": " << exist << std::endl;
+    }    
+
+    // custom data species
+    for (auto elm : custom_data_species)
+    {
+        bool exist = 0;
+       // std::cout << species_name.size() << std::endl;
+        for (int i=0; i < all_species.size(); i++)
+        {
+            //std::cout << all_species[i] << std::endl;;
+            //std::cout << "Comparing " << all_species[i] << " with " << elm.second << std::endl;
+            if ( all_species[i] == elm.second )
+            {
+               //std::cout << "And they are the same..... " <<std::endl;
+               exist = 1; 
+            }
+            idx++;  
+        }
+        if (!exist)
+        {
+            std::cout<< std::endl;
+            std::cout << "ERROR: The specified SBML species in the name of \"" << elm.second << "\" at substrate species. Please take a look SBML species specifications." << std::endl;
+            std::cout<< std::endl;
+            std::cout<< std::endl;
+            exit (-1);
+            return -1;
+        }
+        //std::cout << "existence check : " << elm.second <<": " << exist << std::endl;
+    }    
+    
+    
+    std::cout << "---------VALIDATING_SBML_SPECIES END-------" << std::endl;  
     
     return 0;
 }
