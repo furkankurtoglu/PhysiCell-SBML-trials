@@ -155,6 +155,7 @@ extern std::string space_units;
 extern double diffusion_dt; 
 extern double mechanics_dt;
 extern double phenotype_dt;
+extern double intracellular_dt;
 
 };
 

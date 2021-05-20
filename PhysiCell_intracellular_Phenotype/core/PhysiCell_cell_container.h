@@ -95,6 +95,8 @@ class Cell_Container : public BioFVM::Agent_Container
 	double last_diffusion_time  = 0.0; 
 	double last_cell_cycle_time = 0.0;
 	double last_mechanics_time  = 0.0;
+    double last_intracellular_time = 0.0;
+    
 	Cell_Container();
  	void initialize(double x_start, double x_end, double y_start, double y_end, double z_start, double z_end , double voxel_size);
 	void initialize(double x_start, double x_end, double y_start, double y_end, double z_start, double z_end , double dx, double dy, double dz);
@@ -105,6 +107,7 @@ class Cell_Container : public BioFVM::Agent_Container
 	void update_all_cells(double t, double dt);
 	void update_all_cells(double t, double phenotype_dt, double mechanics_dt);
 	void update_all_cells(double t, double phenotype_dt, double mechanics_dt, double diffusion_dt ); 
+    void update_all_cells(double t, double phenotype_dt_ , double mechanics_dt_ , double diffusion_dt_, double intracellular_dt_ );
 
 	void register_agent( Cell* agent );
 	void add_agent_to_outer_voxel(Cell* agent);

@@ -776,7 +776,7 @@ int RoadRunnerIntracellular::validate_SBML_species()
 
 int RoadRunnerIntracellular::create_custom_data_for_SBML(PhysiCell::Phenotype& phenotype)
 {
-    //std::cout << "Test" << std::endl;
+    std::cout << "Test" << std::endl;
     
     return 0; 
 }

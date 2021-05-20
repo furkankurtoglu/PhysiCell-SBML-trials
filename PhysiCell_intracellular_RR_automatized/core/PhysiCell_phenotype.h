@@ -590,7 +590,7 @@ class Intracellular
     virtual int update_phenotype_parameters(PhysiCell::Phenotype& phenotype) = 0;
     virtual int validate_PhysiCell_tokens(PhysiCell::Phenotype& phenotype) = 0;
     virtual int validate_SBML_species() = 0;
-    virtual int create_custom_data_for_SBML(PhysiCell::Phenotype& phenotype) = 0;
+    virtual int create_custom_data_for_SBML() = 0;
 };
 
 class Phenotype

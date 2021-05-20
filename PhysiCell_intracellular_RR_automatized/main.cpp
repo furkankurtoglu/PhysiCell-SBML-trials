@@ -203,14 +203,6 @@ int main( int argc, char* argv[] )
 
 			// update the microenvironment
 			microenvironment.simulate_diffusion_decay( diffusion_dt );
-            
-            
-/*             double dt_intracellular = 1.0;
-            //std::cout << "Current_Time : " << PhysiCell_globals.current_time << " -   FMOD : " << fmod(PhysiCell_globals.current_time,1.0) << std::endl;
-            if ( fabs((fmod (PhysiCell_globals.current_time, dt_intracellular) - 1 )) < 0.001 || (fmod (PhysiCell_globals.current_time, dt_intracellular) < 0.00001) ) 
-            {
-                std::cout << "DIVIDED" <<std::endl;
-            } */
 			
 			// run PhysiCell 
 			((Cell_Container *)microenvironment.agent_container)->update_all_cells( PhysiCell_globals.current_time );

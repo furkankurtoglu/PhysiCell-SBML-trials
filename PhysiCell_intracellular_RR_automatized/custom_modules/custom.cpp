@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
 /*
 ###############################################################################
 # If you use PhysiCell in your project, please cite PhysiCell and the version #
@@ -66,156 +64,148 @@
 #                                                                             #
 ###############################################################################
 */
---> 
 
-<!--
-<user_details />
--->
+#include "./custom.h"
+#include "../BioFVM/BioFVM.h"  
+using namespace BioFVM;
 
-<PhysiCell_settings version="devel-version">
-	<domain>
-		<x_min>-300</x_min>
-		<x_max>300</x_max>
-		<y_min>-300</y_min>
-		<y_max>300</y_max>
-		<z_min>-10</z_min>
-		<z_max>10</z_max>
-		<dx>20</dx>
-		<dy>20</dy>
-		<dz>20</dz>
-		<use_2D>true</use_2D>
-	</domain>
-	
-	<overall>
-		<max_time units="min">300</max_time> <!-- 5 days * 24 h * 60 min -->
-		<time_units>min</time_units>
-		<space_units>micron</space_units>
-	
-		<dt_diffusion units="min">0.01</dt_diffusion>
-		<dt_mechanics units="min">0.1</dt_mechanics>
-		<dt_phenotype units="min">6</dt_phenotype>	
-	</overall>
-	
-	<parallel>
-		<omp_num_threads>1</omp_num_threads>
-	</parallel> 
-	
-	<save>
-		<folder>output</folder> <!-- use . for root --> 
 
-		<full_data>
-			<interval units="min">1</interval>
-			<enable>true</enable>
-		</full_data>
+#include "rrc_api.h"
+#include "rrc_types.h"
+// #include "rrc_utilities.h"
+extern "C" rrc::RRHandle createRRInstance();
+
+void create_cell_types( void )
+{
+	// set the random seed 
+	SeedRandom( parameters.ints("random_seed") );  
+	
+	/* 
+	   Put any modifications to default cell definition here if you 
+	   want to have "inherited" by other cell types. 
+	   
+	   This is a good place to set default functions. 
+	*/ 
+	
+	cell_defaults.functions.volume_update_function = standard_volume_update_function;
+	cell_defaults.functions.update_velocity = standard_update_cell_velocity;
+
+	cell_defaults.functions.update_migration_bias = NULL; 
+	cell_defaults.functions.update_phenotype = NULL; // update_cell_and_death_parameters_O2_based; 
+	cell_defaults.functions.custom_cell_rule = NULL; 
+	
+	cell_defaults.functions.add_cell_basement_membrane_interactions = NULL; 
+	cell_defaults.functions.calculate_distance_to_membrane = NULL; 
+	
+	/*
+	   This parses the cell definitions in the XML config file. 
+	*/
+	
+	initialize_cell_definitions_from_pugixml(); 
+
+	build_cell_definitions_maps(); 
+	display_cell_definitions( std::cout ); 
+	
+	return; 
+}
+
+void setup_microenvironment( void )
+{
+	// set domain parameters 
+	
+	// put any custom code to set non-homogeneous initial conditions or 
+	// extra Dirichlet nodes here. 
+	
+	// initialize BioFVM 
+	
+	initialize_microenvironment(); 	
+	
+	return; 
+}
+
+void setup_tissue( void )
+{
+	double Xmin = microenvironment.mesh.bounding_box[0]; 
+	double Ymin = microenvironment.mesh.bounding_box[1]; 
+	double Zmin = microenvironment.mesh.bounding_box[2]; 
+
+	double Xmax = microenvironment.mesh.bounding_box[3]; 
+	double Ymax = microenvironment.mesh.bounding_box[4]; 
+	double Zmax = microenvironment.mesh.bounding_box[5]; 
+	
+	if( default_microenvironment_options.simulate_2D == true )
+	{
+		Zmin = 0.0; 
+		Zmax = 0.0; 
+	}
+	
+	double Xrange = Xmax - Xmin; 
+	double Yrange = Ymax - Ymin; 
+	double Zrange = Zmax - Zmin; 
+	
+	// create cells 
+    
+    
+
+	Cell* pCell;
+	
+
+	pCell = create_cell(get_cell_definition("default")); 
+    pCell->assign_position( -50, -30 , 0.0 );
+    pCell->phenotype.intracellular->start();
+    //std::cout << "TEST" << std::endl;
+    //pCell->phenotype.intracellular->validate_PhysiCell_tokens(pCell->phenotype);
+    
+    //double oxy_val = pCell->phenotype.intracellular->get_parameter_value("Oxy");
+    //std::cout << "main.cpp:  oxy_val (from intracellular) = " << oxy_val << std::endl; 
+
+
+//    
+/*     pCell = create_cell(get_cell_definition("default")); 
+    pCell->assign_position( 0, 0 , 0.0 );
+
+    
+    pCell = create_cell(get_cell_definition("default"));
+    pCell->assign_position( 50, 50 , 0.0 ); */
+    
+	return; 
+}
+
+std::vector<std::string> my_coloring_function( Cell* pCell )
+{
+	
+	// start with flow cytometry coloring 
+	
+	std::vector<std::string> output = false_cell_coloring_cytometry(pCell); 
+	
+	// color live prey 
 		
-		<SVG>
-			<interval units="min">1</interval>
-			<enable>true</enable>
-		</SVG>
-		
-		<legacy_data>
-			<enable>false</enable>
-		</legacy_data>
-	</save>
-	
-	<options>
-		<legacy_random_points_on_sphere_in_divide>false</legacy_random_points_on_sphere_in_divide>
-	</options>	
+	if( pCell->phenotype.death.dead == false && pCell->type == 0 )
+	{
+		output[0] = "rgb(255,0,0)";
+		output[2] = "rgb(125,0,0)";
+	}
+    
+  
+    
+    
+    if ( pCell->phenotype.intracellular == NULL)
+    {
+        std::cout << "NULL" << std::endl;
+    }
+    
+    pCell->phenotype.intracellular->update();
+    //double oxy_val = pCell->phenotype.intracellular->get_parameter_value("Oxy");
+    //std::cout << "Cell ID : " << pCell->ID <<"  intracellular = " << oxy_val << std::endl; 
+    
+    
+    //pCell->phenotype.intracellular->validate_PhysiCell_tokens(pCell->phenotype);
+    pCell->phenotype.intracellular->update_phenotype_parameters(pCell->phenotype);
+ 
+    
+    
 
-	<microenvironment_setup>
-		<variable name="oxygen" units="mmHg" ID="0">
-			<physical_parameter_set>
-				<diffusion_coefficient units="micron^2/min">0.0</diffusion_coefficient>
-				<decay_rate units="1/min">0.0</decay_rate>  
-			</physical_parameter_set>
-			<initial_condition units="mmHg">99</initial_condition>
-			<Dirichlet_boundary_condition units="mmHg" enabled="false">0</Dirichlet_boundary_condition>
-		</variable>
-		
-		<variable name="lactate" units="mmHg" ID="1">
-			<physical_parameter_set>
-				<diffusion_coefficient units="micron^2/min">1000.0</diffusion_coefficient>
-				<decay_rate units="1/min">0.0</decay_rate>  
-			</physical_parameter_set>
-			<initial_condition units="mmHg">0</initial_condition>
-			<Dirichlet_boundary_condition units="mmHg" enabled="false">0.0</Dirichlet_boundary_condition>
- 		</variable>
-
-		<options>
-			<calculate_gradients>true</calculate_gradients>
-			<track_internalized_substrates_in_each_agent>true</track_internalized_substrates_in_each_agent>
-			<!-- not yet supported --> 
-			<initial_condition type="matlab" enabled="false">
-				<filename>./config/initial.mat</filename>
-			</initial_condition>
-			<!-- not yet supported --> 
-			<dirichlet_nodes type="matlab" enabled="false">
-				<filename>./config/dirichlet.mat</filename>
-			</dirichlet_nodes>
-		</options>
-	</microenvironment_setup>	
+    
 	
-	<cell_definitions>
-		<cell_definition name="default" ID="0">
-			<phenotype>
-				<cycle code="5" name="live">  
-					<!-- using higher than normal significant digits to match divisions in default code -->
-					<transition_rates units="1/min"> 
-						<rate start_index="0" end_index="0" fixed_duration="false">0.0</rate>
-					</transition_rates>
-				</cycle>			
-				<death>  
-					<model code="100" name="apoptosis"> 
-						<death_rate units="1/min">0.0</death_rate>
-					</model> 
-					<model code="101" name="necrosis">
-						<death_rate units="1/min">0.0</death_rate>
-					</model> 
-				</death>					
-				<volume>  
-					<total units="micron^3">500</total>
-					<fluid_change_rate units="1/min">0.0</fluid_change_rate>
-					<cytoplasmic_biomass_change_rate units="1/min">0.0</cytoplasmic_biomass_change_rate>
-					<nuclear_biomass_change_rate units="1/min">0.0</nuclear_biomass_change_rate>
-				</volume> 				
-				<motility> 
-                	<speed units="micron/min">0.0</speed>
-					<persistence_time units="min">0.1</persistence_time>
-					<migration_bias units="dimensionless">.9</migration_bias>
-					<options>
-						<enabled>true</enabled>
-						<use_2D>true</use_2D>
-                        <chemotaxis>
-							<enabled>false</enabled>
-							<substrate>oxygen</substrate>
-							<direction>1</direction>
-						</chemotaxis>
-					</options>
-				</motility>
-                <secretion>
-					<substrate name="lactate">
-						<secretion_rate units="1/min">1.0</secretion_rate>
-						<secretion_target units="substrate density">10</secretion_target>
-						<uptake_rate units="1/min">0.0</uptake_rate>
-						<net_export_rate units="total substrate/min">0</net_export_rate> 
-                    </substrate> 
-				</secretion>
-				<intracellular type="roadrunner">
-					<sbml_filename>./config/Toy_oxy_mms_tr_01.xml</sbml_filename>
-                    <map PC_substrate="oxygen" sbml_species="Oxy"></map >
-                    <map PC_custom_data="test_CD" sbml_species="death_rate"></map>
-                    <map PC_phenotype="ctr_0_0" sbml_species="transition_rate_0_1"></map>
-                    <map PC_phenotype="sur_lactate" sbml_species="secretion_rate_Lactate"></map>                    
-				</intracellular>
-			</phenotype>
-            <custom_data>  
-				<test_CD units="dimensionless">0.0</test_CD> 
-			</custom_data>
-		</cell_definition>
-    </cell_definitions>
-	
-	<user_parameters>
-		<random_seed type="int" units="dimensionless">0</random_seed> 	
-	</user_parameters>
-	
-</PhysiCell_settings>
+	return output; 
+}

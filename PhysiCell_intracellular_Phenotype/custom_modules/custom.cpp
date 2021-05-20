@@ -201,6 +201,7 @@ std::vector<std::string> my_coloring_function( Cell* pCell )
     
     //pCell->phenotype.intracellular->validate_PhysiCell_tokens(pCell->phenotype);
     pCell->phenotype.intracellular->update_phenotype_parameters(pCell->phenotype);
+    //pCell->phenotype.intracellular->create_custom_data_for_SBML(pCell->phenotype);
  
     
     
