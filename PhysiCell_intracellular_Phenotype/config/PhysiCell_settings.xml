@@ -204,8 +204,6 @@
 					<sbml_filename>./config/Toy_oxy_mms_tr_01.xml</sbml_filename>
                     <map PC_substrate="oxygen" sbml_species="Oxy"></map >
                     <map PC_custom_data="test_CD" sbml_species="death_rate"></map>
-                    <map PC_phenotype="ctr_0_0" sbml_species="transition_rate_0_1"></map>
-                    <map PC_phenotype="sur_lactate" sbml_species="secretion_rate_Lactate"></map>                    
 				</intracellular>
 			</phenotype>
             <custom_data>  
