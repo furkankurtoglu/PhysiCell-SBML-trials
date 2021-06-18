@@ -237,6 +237,7 @@
                     <map PC_substrate="lactate" sbml_species="Lactate"></map >
                     <map PC_substrate="glucose" sbml_species="Glucose"></map >
                     <map PC_phenotype="da" sbml_species="apoptosis_rate"></map>
+                    <map PC_phenotype="mms" sbml_species="migration_speed"></map>
 				</intracellular>
 			</phenotype>
             <custom_data>

@@ -127,12 +127,13 @@ void update_intracellular()
             
             //std::cout << "SBML Oxygen : " <<(*all_cells)[i]->phenotype.intracellular->get_parameter_value("Oxygen") << std::endl;
             (*all_cells)[i]->phenotype.intracellular->update();
+            (*all_cells)[i]->phenotype.intracellular->update_phenotype_parameters((*all_cells)[i]->phenotype);
 /*             std::cout << "SBML Oxygen : " <<(*all_cells)[i]->phenotype.intracellular->get_parameter_value("Oxygen") << std::endl;
             std::cout << "SBML Glucose : " <<(*all_cells)[i]->phenotype.intracellular->get_parameter_value("Glucose") << std::endl;
             std::cout << "SBML Lactate : " <<(*all_cells)[i]->phenotype.intracellular->get_parameter_value("Lactate") << std::endl; */
-            //std::cout << "SBML apoptosis : " <<(*all_cells)[i]->phenotype.intracellular->get_parameter_value("apoptosis_rate") << std::endl;
+            //std::cout << "SBML migration_speed : " <<(*all_cells)[i]->phenotype.intracellular->get_parameter_value("Oxygen") << std::endl;
             
-            if ( (*all_cells)[i]->phenotype.intracellular->get_parameter_value("Energy") < 50.0 )
+/*             if ( (*all_cells)[i]->phenotype.intracellular->get_parameter_value("Energy") < 50.0 )
             {
                 (*all_cells)[i]->phenotype.motility.migration_speed = 100.0;
             }
@@ -141,7 +142,7 @@ void update_intracellular()
                 (*all_cells)[i]->phenotype.motility.migration_speed = 0.0;
             }
             
-            (*all_cells)[i]->phenotype.intracellular->update_phenotype_parameters((*all_cells)[i]->phenotype);
+            (*all_cells)[i]->phenotype.intracellular->update_phenotype_parameters((*all_cells)[i]->phenotype); */
             
             
         }

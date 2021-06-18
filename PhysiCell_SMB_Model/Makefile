@@ -216,7 +216,7 @@ data-cleanup:
 	rm -f *.xml
 	rm -f *.svg
 	rm -rf ./output/*
-	mkdir ./output
+#	mkdir ./output
 	touch ./output/empty.txt
 
 reset:

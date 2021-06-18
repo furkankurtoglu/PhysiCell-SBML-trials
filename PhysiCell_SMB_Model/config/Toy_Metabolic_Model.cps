@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated with COPASI 4.24 (Build 197) (http://www.copasi.org) at 2021-06-15 20:35:36 UTC -->
+<!-- generated with COPASI 4.24 (Build 197) (http://www.copasi.org) at 2021-06-17 20:51:04 UTC -->
 <?oxygen RNGSchema="http://www.copasi.org/static/schema/CopasiML.rng" type="xml"?>
 <COPASI xmlns="http://www.copasi.org/static/schema" versionMajor="4" versionMinor="24" versionDevel="197" copasiSourcesModified="0">
   <ListOfFunctions>
@@ -72,7 +72,9 @@ Reaction scheme where the products are created from the reactants and the change
     <ListOfCompartments>
       <Compartment key="Compartment_0" name="Intracellular" simulationType="fixed" dimensionality="3" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF
+   xmlns:dcterms="http://purl.org/dc/terms/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <rdf:Description rdf:about="#Compartment_0">
     <dcterms:created>
       <rdf:Description>
@@ -81,6 +83,7 @@ Reaction scheme where the products are created from the reactants and the change
     </dcterms:created>
   </rdf:Description>
 </rdf:RDF>
+
         </MiriamAnnotation>
       </Compartment>
     </ListOfCompartments>
@@ -100,7 +103,9 @@ Reaction scheme where the products are created from the reactants and the change
       </Metabolite>
       <Metabolite key="Metabolite_1" name="Oxygen" simulationType="reactions" compartment="Compartment_0" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF
+   xmlns:dcterms="http://purl.org/dc/terms/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <rdf:Description rdf:about="#Metabolite_1">
     <dcterms:created>
       <rdf:Description>
@@ -109,11 +114,14 @@ Reaction scheme where the products are created from the reactants and the change
     </dcterms:created>
   </rdf:Description>
 </rdf:RDF>
+
         </MiriamAnnotation>
       </Metabolite>
       <Metabolite key="Metabolite_2" name="Energy" simulationType="reactions" compartment="Compartment_0" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF
+   xmlns:dcterms="http://purl.org/dc/terms/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <rdf:Description rdf:about="#Metabolite_2">
     <dcterms:created>
       <rdf:Description>
@@ -122,6 +130,7 @@ Reaction scheme where the products are created from the reactants and the change
     </dcterms:created>
   </rdf:Description>
 </rdf:RDF>
+
         </MiriamAnnotation>
       </Metabolite>
       <Metabolite key="Metabolite_3" name="Lactate" simulationType="reactions" compartment="Compartment_0" addNoise="false">
@@ -137,11 +146,9 @@ Reaction scheme where the products are created from the reactants and the change
 </rdf:RDF>
         </MiriamAnnotation>
       </Metabolite>
-      <Metabolite key="Metabolite_4" name="lactate_secretion_rate" simulationType="reactions" compartment="Compartment_0" addNoise="false">
+      <Metabolite key="Metabolite_4" name="lactatesr" simulationType="reactions" compartment="Compartment_0" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF
-   xmlns:dcterms="http://purl.org/dc/terms/"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <rdf:Description rdf:about="#Metabolite_4">
     <dcterms:created>
       <rdf:Description>
@@ -150,14 +157,11 @@ Reaction scheme where the products are created from the reactants and the change
     </dcterms:created>
   </rdf:Description>
 </rdf:RDF>
-
         </MiriamAnnotation>
       </Metabolite>
       <Metabolite key="Metabolite_5" name="apoptosis_rate" simulationType="reactions" compartment="Compartment_0" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF
-   xmlns:dcterms="http://purl.org/dc/terms/"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <rdf:Description rdf:about="#Metabolite_5">
     <dcterms:created>
       <rdf:Description>
@@ -166,7 +170,6 @@ Reaction scheme where the products are created from the reactants and the change
     </dcterms:created>
   </rdf:Description>
 </rdf:RDF>
-
         </MiriamAnnotation>
       </Metabolite>
       <Metabolite key="Metabolite_6" name="migration_speed" simulationType="reactions" compartment="Compartment_0" addNoise="false">
@@ -189,7 +192,9 @@ Reaction scheme where the products are created from the reactants and the change
     <ListOfModelValues>
       <ModelValue key="ModelValue_0" name="k_aer" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF
+   xmlns:dcterms="http://purl.org/dc/terms/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <rdf:Description rdf:about="#ModelValue_0">
     <dcterms:created>
       <rdf:Description>
@@ -198,6 +203,7 @@ Reaction scheme where the products are created from the reactants and the change
     </dcterms:created>
   </rdf:Description>
 </rdf:RDF>
+
         </MiriamAnnotation>
       </ModelValue>
       <ModelValue key="ModelValue_1" name="k_ane" simulationType="fixed" addNoise="false">
@@ -215,7 +221,9 @@ Reaction scheme where the products are created from the reactants and the change
       </ModelValue>
       <ModelValue key="ModelValue_2" name="k_usage" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF
+   xmlns:dcterms="http://purl.org/dc/terms/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <rdf:Description rdf:about="#ModelValue_2">
     <dcterms:created>
       <rdf:Description>
@@ -224,13 +232,32 @@ Reaction scheme where the products are created from the reactants and the change
     </dcterms:created>
   </rdf:Description>
 </rdf:RDF>
+
+        </MiriamAnnotation>
+      </ModelValue>
+      <ModelValue key="ModelValue_3" name="oxygen_thresh" simulationType="fixed" addNoise="false">
+        <MiriamAnnotation>
+<rdf:RDF
+   xmlns:dcterms="http://purl.org/dc/terms/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="#ModelValue_3">
+    <dcterms:created>
+      <rdf:Description>
+        <dcterms:W3CDTF>2021-06-17T13:56:08Z</dcterms:W3CDTF>
+      </rdf:Description>
+    </dcterms:created>
+  </rdf:Description>
+</rdf:RDF>
+
         </MiriamAnnotation>
       </ModelValue>
     </ListOfModelValues>
     <ListOfReactions>
       <Reaction key="Reaction_0" name="Aerobic" reversible="false" fast="false" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF
+   xmlns:dcterms="http://purl.org/dc/terms/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <rdf:Description rdf:about="#Reaction_0">
     <dcterms:created>
       <rdf:Description>
@@ -239,6 +266,7 @@ Reaction scheme where the products are created from the reactants and the change
     </dcterms:created>
   </rdf:Description>
 </rdf:RDF>
+
         </MiriamAnnotation>
         <ListOfSubstrates>
           <Substrate metabolite="Metabolite_0" stoichiometry="1"/>
@@ -264,7 +292,9 @@ Reaction scheme where the products are created from the reactants and the change
       </Reaction>
       <Reaction key="Reaction_1" name="Anaerobic" reversible="false" fast="false" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF
+   xmlns:dcterms="http://purl.org/dc/terms/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <rdf:Description rdf:about="#Reaction_1">
     <dcterms:created>
       <rdf:Description>
@@ -273,6 +303,7 @@ Reaction scheme where the products are created from the reactants and the change
     </dcterms:created>
   </rdf:Description>
 </rdf:RDF>
+
         </MiriamAnnotation>
         <ListOfSubstrates>
           <Substrate metabolite="Metabolite_0" stoichiometry="1"/>
@@ -297,7 +328,9 @@ Reaction scheme where the products are created from the reactants and the change
       </Reaction>
       <Reaction key="Reaction_2" name="Energy_Usage" reversible="false" fast="false" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF
+   xmlns:dcterms="http://purl.org/dc/terms/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <rdf:Description rdf:about="#Reaction_2">
     <dcterms:created>
       <rdf:Description>
@@ -306,6 +339,7 @@ Reaction scheme where the products are created from the reactants and the change
     </dcterms:created>
   </rdf:Description>
 </rdf:RDF>
+
         </MiriamAnnotation>
         <ListOfSubstrates>
           <Substrate metabolite="Metabolite_2" stoichiometry="1"/>
@@ -345,7 +379,7 @@ Reaction scheme where the products are created from the reactants and the change
           &lt;CN=Root,Model=New Model_1,Vector=Compartments[Intracellular],Vector=Metabolites[Lactate],Reference=Concentration> > 0.01
         </TriggerExpression>
         <DelayExpression>
-          &lt;CN=Root,Model=New Model_1,Vector=Compartments[Intracellular],Vector=Metabolites[lactate_secretion_rate],Reference=Concentration>
+          &lt;CN=Root,Model=New Model_1,Vector=Compartments[Intracellular],Vector=Metabolites[lactatesr],Reference=Concentration>
         </DelayExpression>
         <ListOfAssignments>
           <Assignment targetKey="Metabolite_4">
@@ -397,7 +431,7 @@ Reaction scheme where the products are created from the reactants and the change
 
         </MiriamAnnotation>
         <TriggerExpression>
-          &lt;CN=Root,Model=New Model_1,Vector=Compartments[Intracellular],Vector=Metabolites[Energy],Reference=Concentration> &lt; 50.0
+          &lt;CN=Root,Model=New Model_1,Vector=Compartments[Intracellular],Vector=Metabolites[Oxygen],Reference=Concentration> > &lt;CN=Root,Model=New Model_1,Vector=Values[oxygen_thresh],Reference=Value>
         </TriggerExpression>
         <ListOfAssignments>
           <Assignment targetKey="Metabolite_6">
@@ -423,7 +457,7 @@ Reaction scheme where the products are created from the reactants and the change
 
         </MiriamAnnotation>
         <TriggerExpression>
-          &lt;CN=Root,Model=New Model_1,Vector=Compartments[Intracellular],Vector=Metabolites[Energy],Reference=Concentration> > 50.0
+          &lt;CN=Root,Model=New Model_1,Vector=Compartments[Intracellular],Vector=Metabolites[Oxygen],Reference=Concentration> &lt; &lt;CN=Root,Model=New Model_1,Vector=Values[oxygen_thresh],Reference=Value>
         </TriggerExpression>
         <ListOfAssignments>
           <Assignment targetKey="Metabolite_6">
@@ -447,7 +481,7 @@ Reaction scheme where the products are created from the reactants and the change
           <ModelParameter cn="CN=Root,Model=New Model_1,Vector=Compartments[Intracellular],Vector=Metabolites[Oxygen]" value="0" type="Species" simulationType="reactions"/>
           <ModelParameter cn="CN=Root,Model=New Model_1,Vector=Compartments[Intracellular],Vector=Metabolites[Energy]" value="6.0221408570000005e+22" type="Species" simulationType="reactions"/>
           <ModelParameter cn="CN=Root,Model=New Model_1,Vector=Compartments[Intracellular],Vector=Metabolites[Lactate]" value="0" type="Species" simulationType="reactions"/>
-          <ModelParameter cn="CN=Root,Model=New Model_1,Vector=Compartments[Intracellular],Vector=Metabolites[lactate_secretion_rate]" value="0" type="Species" simulationType="reactions"/>
+          <ModelParameter cn="CN=Root,Model=New Model_1,Vector=Compartments[Intracellular],Vector=Metabolites[lactatesr]" value="0" type="Species" simulationType="reactions"/>
           <ModelParameter cn="CN=Root,Model=New Model_1,Vector=Compartments[Intracellular],Vector=Metabolites[apoptosis_rate]" value="0" type="Species" simulationType="reactions"/>
           <ModelParameter cn="CN=Root,Model=New Model_1,Vector=Compartments[Intracellular],Vector=Metabolites[migration_speed]" value="0" type="Species" simulationType="reactions"/>
         </ModelParameterGroup>
@@ -455,6 +489,7 @@ Reaction scheme where the products are created from the reactants and the change
           <ModelParameter cn="CN=Root,Model=New Model_1,Vector=Values[k_aer]" value="0.5" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=New Model_1,Vector=Values[k_ane]" value="0.10000000000000001" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=New Model_1,Vector=Values[k_usage]" value="5" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=New Model_1,Vector=Values[oxygen_thresh]" value="0.10000000000000001" type="ModelValue" simulationType="fixed"/>
         </ModelParameterGroup>
         <ModelParameterGroup cn="String=Kinetic Parameters" type="Group">
           <ModelParameterGroup cn="CN=Root,Model=New Model_1,Vector=Reactions[Aerobic]" type="Reaction">
@@ -494,9 +529,10 @@ Reaction scheme where the products are created from the reactants and the change
       <StateTemplateVariable objectReference="ModelValue_0"/>
       <StateTemplateVariable objectReference="ModelValue_1"/>
       <StateTemplateVariable objectReference="ModelValue_2"/>
+      <StateTemplateVariable objectReference="ModelValue_3"/>
     </StateTemplate>
     <InitialState type="initialState">
-      0 6.0221408570000005e+22 0 0 0 0 0 0 1 0.5 0.10000000000000001 5 
+      0 6.0221408570000005e+22 0 0 0 0 0 0 1 0.5 0.10000000000000001 5 0.10000000000000001 
     </InitialState>
   </Model>
   <ListOfTasks>
@@ -856,15 +892,16 @@ Reaction scheme where the products are created from the reactants and the change
     <SBMLMap SBMLid="Lactate" COPASIkey="Metabolite_3"/>
     <SBMLMap SBMLid="Oxygen" COPASIkey="Metabolite_1"/>
     <SBMLMap SBMLid="apoptosis_rate" COPASIkey="Metabolite_5"/>
-    <SBMLMap SBMLid="cycle" COPASIkey="Event_0"/>
     <SBMLMap SBMLid="cycle_rate" COPASIkey="Metabolite_4"/>
-    <SBMLMap SBMLid="death" COPASIkey="Event_1"/>
+    <SBMLMap SBMLid="die" COPASIkey="Event_1"/>
     <SBMLMap SBMLid="do_not_move" COPASIkey="Event_2"/>
     <SBMLMap SBMLid="k_aer" COPASIkey="ModelValue_0"/>
     <SBMLMap SBMLid="k_ane" COPASIkey="ModelValue_1"/>
     <SBMLMap SBMLid="k_usage" COPASIkey="ModelValue_2"/>
     <SBMLMap SBMLid="migration_speed" COPASIkey="Metabolite_6"/>
     <SBMLMap SBMLid="move" COPASIkey="Event_3"/>
+    <SBMLMap SBMLid="oxygen_thresh" COPASIkey="ModelValue_3"/>
+    <SBMLMap SBMLid="secrete_lactate" COPASIkey="Event_0"/>
   </SBMLReference>
   <ListOfUnitDefinitions>
     <UnitDefinition key="Unit_0" name="meter" symbol="m">
