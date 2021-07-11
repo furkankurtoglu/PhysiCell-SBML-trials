@@ -1,0 +1,1 @@
+<map PC_phenotype="mms" sbml_species="cycle_rate"></map>

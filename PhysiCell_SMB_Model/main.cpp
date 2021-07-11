@@ -137,7 +137,7 @@ void update_intracellular()
             {
                 (*all_cells)[i]->phenotype.motility.migration_speed = 100.0;
             }
-            else
+                else
             {
                 (*all_cells)[i]->phenotype.motility.migration_speed = 0.0;
             }
