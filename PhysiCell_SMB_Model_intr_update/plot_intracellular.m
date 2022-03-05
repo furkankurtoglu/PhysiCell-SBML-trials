@@ -14,10 +14,10 @@ for i = 1:length(OutMatFiles)
     OutMatFiles{i}=OutMatFiles{i}(1:14);
 end
 
-xmin = -50;
-xmax = 50;
-ymin = -50;
-ymax = 50;
+xmin = -20;
+xmax = 20;
+ymin = -20;
+ymax = 20;
 
 Oxygen_Means = zeros(1,length(OutMatFiles));
 Glucose_Means = zeros(1,length(OutMatFiles));
@@ -61,15 +61,20 @@ for i = 1:length(OutMatFiles)
     
 end 
 
-time_points = time_points * time_interval;
+%%
+time_points = time_points * time_interval / 60;
 
 figure(1)
-plot(time_points,Energy_Means)
-title('Mean Energy')
+plot(time_points(1:32),Energy_Means(1:32))
+title('Average Cellular Energy Across the Area  x=[-20,20],y=[-20,20]')
+xlabel('time (hours)')
+ylabel('Energy (a.u.)')
 
 figure(2)
-plot(time_points,Oxygen_Means)
-title('Mean Oxygen')
+plot(time_points(1:32),Oxygen_Means(1:32))
+title('Average Intracellular Oxygen Across the Area  x=[-20,20],y=[-20,20]')
+xlabel('time (hours)')
+ylabel('Oxygen')
 
 figure(3)
 plot(time_points,Glucose_Means)
